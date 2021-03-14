@@ -30,17 +30,17 @@ class IMDBBase(Automation, RSS):
         'theater': {
             'order': 1,
             'name': 'IMDB - Movies in Theaters',
-            'url': 'http://www.imdb.com/movies-in-theaters/',
+            'url': 'https://www.imdb.com/movies-in-theaters/',
         },
         'boxoffice': {
             'order': 2,
             'name': 'IMDB - Box Office',
-            'url': 'http://www.imdb.com/boxoffice/',
+            'url': 'https://www.imdb.com/boxoffice/',
         },
         'top250': {
             'order': 3,
             'name': 'IMDB - Top 250 Movies',
-            'url': 'http://www.imdb.com/chart/top',
+            'url': 'https://www.imdb.com/chart/top',
         },
     }
 
@@ -60,6 +60,7 @@ class IMDBBase(Automation, RSS):
 
                 if len(split) < 2:
                     log.error('Failed parsing IMDB page "%s", unexpected html.', url)
+                    log.error('--> %s', html)
                     return []
 
                 html = BeautifulSoup(split[1])
@@ -99,12 +100,12 @@ class IMDBWatchlist(IMDBBase):
                 # Get list ID
                 ids = re.findall('(?:list/|list_id=)([a-zA-Z0-9\-_]{11})', watchlist_url)
                 if len(ids) == 1:
-                    watchlist_url = 'http://www.imdb.com/list/%s/?view=compact&sort=created:asc' % ids[0]
+                    watchlist_url = 'https://www.imdb.com/list/%s/?view=compact&sort=created:asc' % ids[0]
                 # Try find user id with watchlist
                 else:
                     userids = re.findall('(ur\d{7,9})', watchlist_url)
                     if len(userids) == 1:
-                        watchlist_url = 'http://www.imdb.com/user/%s/watchlist?view=compact&sort=created:asc' % userids[0]
+                        watchlist_url = 'https://www.imdb.com/user/%s/watchlist?view=compact&sort=created:asc' % userids[0]
             except:
                 log.error('Failed getting id from watchlist: %s', traceback.format_exc())
 
@@ -260,21 +261,21 @@ config = [{
                     'name': 'automation_charts_theater',
                     'type': 'bool',
                     'label': 'In Theaters',
-                    'description': 'New Movies <a href="http://www.imdb.com/movies-in-theaters/" target="_blank">In-Theaters</a> chart',
+                    'description': 'New Movies <a href="https://www.imdb.com/movies-in-theaters/" target="_blank">In-Theaters</a> chart',
                     'default': True,
                 },
                 {
                     'name': 'automation_charts_top250',
                     'type': 'bool',
                     'label': 'TOP 250',
-                    'description': 'IMDB <a href="http://www.imdb.com/chart/top/" target="_blank">TOP 250</a> chart',
+                    'description': 'IMDB <a href="https://www.imdb.com/chart/top/" target="_blank">TOP 250</a> chart',
                     'default': False,
                 },
                 {
                     'name': 'automation_charts_boxoffice',
                     'type': 'bool',
                     'label': 'Box office TOP 10',
-                    'description': 'IMDB Box office <a href="http://www.imdb.com/chart/" target="_blank">TOP 10</a> chart',
+                    'description': 'IMDB Box office <a href="https://www.imdb.com/chart/" target="_blank">TOP 10</a> chart',
                     'default': True,
                 },
             ],
@@ -295,21 +296,21 @@ config = [{
                     'name': 'chart_display_theater',
                     'type': 'bool',
                     'label': 'In Theaters',
-                    'description': 'New Movies <a href="http://www.imdb.com/movies-in-theaters/" target="_blank">In-Theaters</a> chart',
+                    'description': 'New Movies <a href="https://www.imdb.com/movies-in-theaters/" target="_blank">In-Theaters</a> chart',
                     'default': False,
                 },
                 {
                     'name': 'chart_display_top250',
                     'type': 'bool',
                     'label': 'TOP 250',
-                    'description': 'IMDB <a href="http://www.imdb.com/chart/top/" target="_blank">TOP 250</a> chart',
+                    'description': 'IMDB <a href="https://www.imdb.com/chart/top/" target="_blank">TOP 250</a> chart',
                     'default': False,
                 },
                 {
                     'name': 'chart_display_boxoffice',
                     'type': 'bool',
                     'label': 'Box office TOP 10',
-                    'description': 'IMDB Box office <a href="http://www.imdb.com/chart/" target="_blank">TOP 10</a> chart',
+                    'description': 'IMDB Box office <a href="https://www.imdb.com/chart/" target="_blank">TOP 10</a> chart',
                     'default': True,
                 },
             ],
